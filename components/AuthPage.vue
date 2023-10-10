@@ -8,7 +8,7 @@
       />
     </div>
     <div
-      :class="{ 'animate-pulse': changeBool }"
+      :class="{ 'animate-pulse': $refs?.auth?.loading?.value }"
       class="absolute sm:right-0 backdrop-blur-lg linear-transition h-screen border-4 w-full sm:w-1/2 xl:w-1/3 p-4 sm:p-8 xl:p-16"
       :style="{
         borderImage:
@@ -20,8 +20,11 @@
         @mouseover="runFun(false)"
         @mouseleave="runFun(true)"
         class="flex border-2 bg-gray-900 w-full h-full justify-center items-center mx-auto"
+        style="
+          background-image: url('https://jingculturecrypto.com/wp-content/uploads/2022/07/christies-arttech-22-mdj.jpg');
+        "
       >
-        <h1 class="text-white">auth form</h1>
+        <auth-form ref="auth" class="bg-black -z-1 absolute" />
       </div>
     </div>
   </div>
