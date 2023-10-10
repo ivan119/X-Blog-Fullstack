@@ -1,10 +1,10 @@
-import { useCookie } from 'nuxt/app'
+import { getRefreshTokenByToken } from '~/server/db/refreshTokens'
 
 export default defineEventHandler(async (event) => {
-  const cookies = getCookie(event, 'jwt')
-  console.log(getCookie)
-  const refreshtoken = cookies.refresh_token
-  if (!refreshtoken) {
+  const cookies = parseCookies(event)
+  console.log(cookies, 'cookies')
+  const refreshToken = cookies.refresh_token
+  if (!refreshToken) {
     return sendError(
       event,
       createError({
@@ -13,7 +13,9 @@ export default defineEventHandler(async (event) => {
       })
     )
   }
+  const rToken = await getRefreshTokenByToken(refreshToken)
+
   return {
-    hello: refreshtoken,
+    hello: rToken,
   }
 })
