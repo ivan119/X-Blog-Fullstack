@@ -30,12 +30,26 @@ export const generateTokens = (user) => {
     refreshToken: refreshToken,
   }
 }
-
+export const decodeRefreshToken = (token) => {
+  const config = useRuntimeConfig()
+  try {
+    return jwt.verify(token, config.jwtRefreshSecret)
+  } catch (e) {
+    return null
+  }
+}
+export const decodeAccessToken = (token) => {
+  const config = useRuntimeConfig()
+  try {
+    return jwt.verify(token, config.jwtAccessSecret)
+  } catch (e) {
+    return null
+  }
+}
 export const sendRefreshToken = async (event, token) => {
   if (!event.res) {
+    return null
   }
-  console.log(event, 'event-res')
-
   setCookie(event, 'refresh_token', token, {
     httpOnly: true,
     sameSite: true,

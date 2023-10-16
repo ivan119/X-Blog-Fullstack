@@ -18,7 +18,6 @@ export default defineEventHandler(async (event) => {
 
   // Is user registered?
   const user = await getUserByUsername(username)
-  console.log(user, 'get user')
   if (!user) {
     return sendError(
       event,

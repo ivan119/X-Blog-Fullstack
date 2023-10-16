@@ -39,7 +39,6 @@ async function submitLoginForm() {
   try {
     await login(form.userName, form.password)
   } catch (error) {
-    console.log(error)
   } finally {
     form.loading = false
   }
