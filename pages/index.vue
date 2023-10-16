@@ -1,8 +1,12 @@
 <template>
   <div>
-    <pages-home title="Home Page" :loading="loading">Content</pages-home>
+    <pages-home title="Home Page" :loading="loading">{{ user }}</pages-home>
   </div>
 </template>
 <script setup>
+import useAuth from '~/composables/useAuth'
+
 const loading = ref(false)
+const { useAuthUser } = useAuth()
+const user = useAuthUser()
 </script>

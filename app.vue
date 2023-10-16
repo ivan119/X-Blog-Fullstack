@@ -1,7 +1,7 @@
 <template>
   <div :class="{ dark: darkMode }">
     <div class="bg-white dark:bg-dim-900">
-      <div v-if="isAuthLoading"></div>
+      <div v-if="isAuthLoading"><UILoadingPage /></div>
       <!---App--->
       <div v-else-if="user" class="min-h-full">
         <div
