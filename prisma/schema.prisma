@@ -11,23 +11,40 @@ datasource db {
 }
 
 model User {
-     id           String  @id @default(auto()) @map("_id") @db.ObjectId
-     email        String
-     name         String?
-     username     String  @unique
-     password     String
-     profileImage String?
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  email        String
+  name         String?
+  username     String  @unique
+  password     String
+  profileImage String?
 
-     createdAt DateTime @default(now())
-     updatedAt DateTime @updatedAt
-     refreshToken refreshToken[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  // RefreshToken
+  refreshToken refreshToken[]
+  // Tweet
+  Tweet        Tweet[]
 }
 
 model refreshToken {
-    id           String @id @default(auto()) @map("_id") @db.ObjectId
-    token        String @unique
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    userId       String @db.ObjectId
-    user         User   @relation(fields: [userId],references: [id])
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Tweet {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Author
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String   @db.ObjectId
+  replyToId String?  @db.ObjectId
+  replyTo   Tweet?   @relation("replies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Tweet[]  @relation("replies")
+  // MediaFiles
 }
