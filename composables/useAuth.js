@@ -1,5 +1,6 @@
 import useFetchApi from '~/composables/useFetchApi'
 import jwtDecode from 'jwt-decode'
+
 export default () => {
   const useAuthToken = () => useState('auth_token')
   const useAuthUser = () => useState('auth_user')
