@@ -1,6 +1,8 @@
 <template>
   <div>
-    <pages-home title="Home Page" :loading="loading">{{ user }}</pages-home>
+    <pages-home title="Home Page" :loading="loading">
+      <TweetForm :user="user" />
+    </pages-home>
   </div>
 </template>
 <script setup>
