@@ -1,9 +1,10 @@
 import UrlPattern from 'url-pattern'
 import { decodeAccessToken } from '~/server/utils/jwt'
 import { getUserById } from '~/server/db/users'
+
 export default defineEventHandler(async (event) => {
   // TODO: Check for "event.req" "Deprecated symbol used, consult docs for better alternative"
-  const endpoints = ['/api/auth/user', '/api/user/tweets']
+  const endpoints = ['/api/auth/user', '/api/user/tweets', '/api/tweets']
   const isHandleByThisMiddleware = endpoints.some((endpoint) => {
     const pattern = new UrlPattern(endpoint)
     return pattern.match(event.req.url)

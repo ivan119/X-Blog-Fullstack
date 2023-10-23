@@ -6,6 +6,7 @@ import { uploadToCloudinary } from '~/server/utils/cloudinary'
 
 export default defineEventHandler(async (event) => {
   const form = formidable({})
+  // TODO: Check why we need extract array from fields
   const response = await new Promise((resolve, reject) => {
     form.parse(event.req, (err, fields, files) => {
       if (err) {
@@ -19,6 +20,12 @@ export default defineEventHandler(async (event) => {
   const tweetData = {
     text: fields.text[0],
     authorId: userId,
+  }
+
+  const replyTo = fields.replyTo
+  console.log(fields.replyTo, 'fields.replyTo')
+  if (replyTo?.length) {
+    tweetData.replyToId = replyTo[0]
   }
   const tweet = await createTweet(tweetData)
   const filePromises = Object.keys(files).map(async (key) => {
