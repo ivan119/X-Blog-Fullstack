@@ -1,6 +1,7 @@
 <script setup>
 import useTweets from '~/composables/useTweets'
 
+const loading = ref(false)
 const { postTweet } = useTweets()
 const props = defineProps({
   user: {
@@ -11,6 +12,7 @@ const props = defineProps({
 })
 
 const handleFormSubmit = async (data) => {
+  loading.value = true
   try {
     const response = await postTweet({
       text: data.text,
@@ -19,12 +21,17 @@ const handleFormSubmit = async (data) => {
     console.log(response)
   } catch (e) {
     console.log(e)
+  } finally {
+    loading.value = false
   }
 }
 </script>
 <template>
   <div>
-    <TweetFormInput :user="props.user" @on-submit="handleFormSubmit" />
+    <div v-if="loading" class="flex items-center justify-center p-6">
+      <UISpinner />
+    </div>
+    <TweetFormInput v-else :user="props.user" @on-submit="handleFormSubmit" />
   </div>
 </template>
 1
