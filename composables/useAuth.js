@@ -1,5 +1,5 @@
 import useFetchApi from '~/composables/useFetchApi'
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 
 export default () => {
   const useAuthToken = () => useState('auth_token')
@@ -64,9 +64,10 @@ export default () => {
   const reRefreshAccessToken = () => {
     const authToken = useAuthToken()
     if (!authToken) return
-    const jwt = jwtDecode(authToken.value)
+    const jwt = jwtDecode(`${authToken.value}`, { header: false })
+    console.log(jwt, 'jwt')
     const newRefreshTime = jwt.exp - 60000
-
+    console.log(newRefreshTime)
     setTimeout(async () => {
       await refreshToken()
       reRefreshAccessToken()
