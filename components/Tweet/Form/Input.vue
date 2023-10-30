@@ -32,8 +32,6 @@ const handleImageChange = (event) => {
   selectedFile.value = file
   const reader = new FileReader()
   reader.onload = (event) => {
-    console.log(event)
-    debugger
     inputImageUrl.value = event.target.result
   }
   reader.readAsDataURL(file)

@@ -23,7 +23,6 @@ export default defineEventHandler(async (event) => {
   }
 
   const replyTo = fields.replyTo
-  console.log(fields.replyTo, 'fields.replyTo')
   if (replyTo?.length) {
     tweetData.replyToId = replyTo[0]
   }
