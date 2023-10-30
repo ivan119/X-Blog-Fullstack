@@ -20,9 +20,10 @@
     "eslint-plugin-nuxt": "^3.1.0",
     "eslint-plugin-vue": "^8.2.0",
     "prettier": "^2.5.1",
-    "prisma": "^5.2.0"
+    "prisma": "^5.5.2"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.0.18",
     "@prisma/client": "^5.5.2",
     "@tailwindcss/forms": "^0.5.6",
@@ -33,7 +34,7 @@
     "human-time": "^0.0.2",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
-    "nuxt": "^3.7.4",
+    "nuxt": "^3.8.0",
     "url-pattern": "^1.0.3"
   },
   "volta": {
