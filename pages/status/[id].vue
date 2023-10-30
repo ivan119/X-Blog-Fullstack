@@ -1,13 +1,16 @@
 <script setup>
-import useTweets from '~/composables/useTweets'
-import useAuth from '~/composables/useAuth'
-
-const getTweetIdFromRoute = () => {
-  return useRoute().params.id
-}
-const tweet = ref({})
+const loading = ref(false)
+const tweet = ref(null)
 const { getTweetById } = useTweets()
-const getTweet = async () => {
+const { useAuthUser } = useAuth()
+const user = useAuthUser()
+const route = useRouter().currentRoute.value
+
+function getTweetIdFromRoute() {
+  return route.params.id
+}
+
+async function getTweet() {
   loading.value = true
   try {
     const response = await getTweetById(getTweetIdFromRoute())
@@ -17,16 +20,10 @@ const getTweet = async () => {
     loading.value = false
   }
 }
-const loading = ref(false)
-onBeforeMount(async () => {
-  await getTweet()
+
+onBeforeMount(() => {
+  getTweet()
 })
-const { useAuthUser } = useAuth()
-const user = useAuthUser()
-watch(
-  () => useRoute().fullPath,
-  () => getTweet()
-)
 </script>
 <template>
   <div>
