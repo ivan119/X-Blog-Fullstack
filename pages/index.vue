@@ -9,6 +9,11 @@ const loading = ref(false)
 const { getHomeTweets } = useTweets()
 const { useAuthUser } = useAuth()
 const user = useAuthUser()
+const handleFormSuccess = (tweet) => {
+  navigateTo({
+    path: `/status/${tweet.id}`,
+  })
+}
 onBeforeMount(async () => {
   loading.value = true
   try {
@@ -29,7 +34,7 @@ onBeforeMount(async () => {
         <Title>Home / Twitter</Title>
       </Head>
       <div class="border-b" :class="twitterBorderColor">
-        <TweetForm :user="user" />
+        <TweetForm :user="user" @on-success="handleFormSuccess" />
       </div>
       <ListFeed :tweets="homeTweets" />
     </pages-home>
