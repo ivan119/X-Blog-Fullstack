@@ -10,16 +10,24 @@ function getTweetIdFromRoute() {
   return route.params.id
 }
 
-async function getTweet() {
+async function getTweet(id) {
   loading.value = true
   try {
-    const response = await getTweetById(getTweetIdFromRoute())
+    const response = await getTweetById(id || getTweetIdFromRoute())
     tweet.value = response?.tweet
   } catch (e) {
   } finally {
     loading.value = false
   }
 }
+
+watch(
+  () => useRouter().currentRoute.value,
+  (newRoute) => {
+    // This function will be called whenever the route changes
+    getTweet(newRoute.params.id)
+  }
+)
 
 onBeforeMount(() => {
   getTweet()
