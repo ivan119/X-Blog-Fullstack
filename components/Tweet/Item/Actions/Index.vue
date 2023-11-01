@@ -16,12 +16,17 @@ const props = defineProps({
     default: false,
   },
 })
+const emits = defineEmits(['onCommentClick'])
 const size = computed(() => (props?.compact ? 5 : 8))
 </script>
 
 <template>
   <div class="flex items-center justify-around w-full">
-    <TweetItemActionsIcon color="blue" :size="size">
+    <TweetItemActionsIcon
+      color="blue"
+      :size="size"
+      @on-click="emits('onCommentClick')"
+    >
       <template v-slot:icon="{ classes }">
         <chat-bubble-bottom-center-icon :class="classes" />
       </template>

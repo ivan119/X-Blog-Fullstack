@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { defaultTransition } = useTailwindConfig()
-
+const emits = defineEmits(['onClick'])
 const props = defineProps({
   color: {
     type: String,
@@ -15,6 +15,7 @@ const props = defineProps({
 
 <template>
   <div
+    @click.stop.prevent="emits('onClick')"
     class="flex items-center text-gray-400 cursor-pointer dark:text-white group"
   >
     <div

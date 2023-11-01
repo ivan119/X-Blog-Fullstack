@@ -13,7 +13,7 @@
           <!--Left Sidebar-->
           <div class="hidden md:block xs:col-span-1 xl:col-span-2">
             <div class="sticky top-0">
-              <sidebar-left />
+              <sidebar-left @on-tweet="handleOpenTweetModal" />
             </div>
           </div>
           <!--Main Content-->
@@ -31,17 +31,53 @@
 
       <!---->
       <AuthPage v-else />
+      <UIModal :isOpen="postTweetModal" @on-close="handleModalClose">
+        <TweetForm
+          :reply-to="replyTweet"
+          showReply
+          :user="user"
+          @on-success="handleFormSuccess"
+        />
+      </UIModal>
     </div>
   </div>
 </template>
 <script setup>
 import useAuth from '~/composables/useAuth'
+import useEmitter from '~/composables/useEmitter'
 
 const darkMode = ref(false)
 const { defaultTransition } = useTailwindConfig()
 const { useAuthUser, initAuth, useAuthLoading } = useAuth()
+const {
+  openPostTweetModal,
+  closePostTweetModal,
+  usePostTweetModal,
+  useReplyTweet,
+} = useTweets()
 const isAuthLoading = useAuthLoading()
 const user = useAuthUser()
+// Modal
+const postTweetModal = usePostTweetModal()
+const replyTweet = useReplyTweet()
+const emitter = useEmitter()
+emitter.$on('replyTweet', (tweet) => {
+  openPostTweetModal(tweet)
+})
+const handleFormSuccess = (tweet) => {
+  closePostTweetModal()
+  navigateTo({
+    path: `/status/${tweet.id}`,
+  })
+}
+
+const handleOpenTweetModal = () => {
+  openPostTweetModal(null)
+}
+const handleModalClose = () => {
+  closePostTweetModal()
+}
+// BeforeMounted
 onBeforeMount(() => {
   initAuth()
 })

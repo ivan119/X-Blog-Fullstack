@@ -10,8 +10,8 @@ function getTweetIdFromRoute() {
   return route.params.id
 }
 
-async function getTweet(id) {
-  loading.value = true
+async function getTweet(id, useLoading = false) {
+  loading.value = !useLoading
   try {
     const response = await getTweetById(id || getTweetIdFromRoute())
     tweet.value = response?.tweet
@@ -25,12 +25,12 @@ watch(
   () => useRouter().currentRoute.value,
   (newRoute) => {
     // This function will be called whenever the route changes
-    getTweet(newRoute.params.id)
+    getTweet(newRoute.params.id, false)
   }
 )
 
 onBeforeMount(() => {
-  getTweet()
+  getTweet(null, false)
 })
 </script>
 <template>
@@ -39,7 +39,11 @@ onBeforeMount(() => {
       <Head>
         <Title>Test</Title>
       </Head>
-      <TweetDetails :user="user" :tweet="tweet" />
+      <TweetDetails
+        :user="user"
+        :tweet="tweet"
+        @refresh-data="getTweet(null, true)"
+      />
     </pages-home>
   </div>
 </template>

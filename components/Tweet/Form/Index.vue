@@ -19,6 +19,11 @@ const props = defineProps({
     type: Object,
     default: null,
   },
+  showReply: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
 })
 
 const handleFormSubmit = async (data) => {
@@ -42,12 +47,18 @@ const handleFormSubmit = async (data) => {
     <div v-if="loading" class="flex items-center justify-center p-6">
       <UISpinner />
     </div>
-    <TweetFormInput
-      :placeholder="props.placeholder"
-      v-else
-      :user="props.user"
-      @on-submit="handleFormSubmit"
-    />
+    <div v-else>
+      <TweetItem
+        v-if="props.replyTo && props.showReply"
+        :tweet="props.replyTo"
+        hideActions
+      />
+      <TweetFormInput
+        :placeholder="props.placeholder"
+        :user="props.user"
+        @on-submit="handleFormSubmit"
+      />
+    </div>
   </div>
 </template>
 1

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { HomeIcon } from '@heroicons/vue/24/solid'
 import {
   HashtagIcon,
@@ -12,6 +12,7 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const { defaultTransition } = useTailwindConfig()
+const emits = defineEmits(['onTweet'])
 </script>
 
 <template>
@@ -76,12 +77,12 @@ const { defaultTransition } = useTailwindConfig()
         <template #name>More</template>
       </sidebar-tab>
       <div class="hidden xl:block">
-        <UIButton liquid size="lg">
+        <UIButton @on-click="emits('onTweet')" liquid size="lg">
           <span class="font-bold">Tweet</span>
         </UIButton>
       </div>
       <div class="block xl:hidden">
-        <UIButton liquid size="lg">
+        <UIButton @on-click="emits('onTweet')" liquid size="lg">
           <div class="w-6 h-6 font-bold">
             <span class="font-bold"><PencilIcon /></span>
           </div>

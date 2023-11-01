@@ -1,4 +1,5 @@
 <script setup>
+const emits = defineEmits(['refresh-data'])
 const props = defineProps({
   tweet: {
     type: Object,
@@ -11,9 +12,13 @@ const props = defineProps({
 })
 const replies = computed(() => props?.tweet?.replies || [])
 const handleFormSuccess = (tweet) => {
-  navigateTo({
-    path: `/status/${tweet.id}`,
-  })
+  if (useRoute().params.id) {
+    emits('refresh-data')
+  } else {
+    navigateTo({
+      path: `/status/${tweet.id}`,
+    })
+  }
 }
 </script>
 
