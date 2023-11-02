@@ -6,7 +6,7 @@ import useTweets from '~/composables/useTweets'
 const { twitterBorderColor } = useTailwindConfig()
 const homeTweets = ref([])
 const loading = ref(false)
-const { getHomeTweets } = useTweets()
+const { getTweets } = useTweets()
 const { useAuthUser } = useAuth()
 const user = useAuthUser()
 const handleFormSuccess = (tweet) => {
@@ -17,7 +17,7 @@ const handleFormSuccess = (tweet) => {
 onBeforeMount(async () => {
   loading.value = true
   try {
-    const { tweets } = await getHomeTweets()
+    const { tweets } = await getTweets()
     homeTweets.value = tweets
   } catch (e) {
     console.log(e)
