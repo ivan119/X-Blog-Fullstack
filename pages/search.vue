@@ -16,6 +16,7 @@ onBeforeMount(() => {
 })
 
 async function getTweets() {
+  // TODO: FIX WATCHER AND SEARCH QUERY CACHING
   loading.value = true
   console.log(searchQuery, 'searchQuery')
   try {

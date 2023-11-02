@@ -62,12 +62,41 @@
         </div>
       </sidebar-preview-card-item>
     </sidebar-preview-card>
+    <footer>
+      <ul class="mx-2 my-4 text-xs text-gray-500">
+        <li class="inline-block mx-2">
+          <a
+            href="#"
+            class="hover:underline"
+            @click.prevent="handleToggleDarkMode"
+            >Dark mode</a
+          >
+        </li>
+        <li class="inline-block mx-2">
+          <a href="#" class="hover:underline">Privacy Policy</a>
+        </li>
+        <li class="inline-block mx-2">
+          <a href="#" class="hover:underline">Cookie Policy</a>
+        </li>
+        <li class="inline-block mx-2">
+          <a href="#" class="hover:underline">Accessability</a>
+        </li>
+        <li class="inline-block mx-2">
+          <a href="#" class="hover:underline">Ads info</a>
+        </li>
+        <li class="inline-block mx-2">
+          <a href="#" class="hover:underline">More</a>
+        </li>
+        <li class="inline-block mx-2">© 2023 Twitter, Inc.</li>
+      </ul>
+    </footer>
   </div>
 </template>
 <script setup>
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
 
 const search = ref('')
+const emitter = useEmitter()
 const handleSearch = () => {
   useRouter().push({
     path: '/search',
@@ -107,4 +136,7 @@ const whoToFollowItems = ref([
     image: 'https://picsum.photos/100/100',
   },
 ])
+const handleToggleDarkMode = () => {
+  emitter.$emit('toggleDarkMode')
+}
 </script>
