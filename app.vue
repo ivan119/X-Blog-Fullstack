@@ -13,7 +13,11 @@
           <!--Left Sidebar-->
           <div class="hidden md:block xs:col-span-1 xl:col-span-2">
             <div class="sticky top-0">
-              <sidebar-left @on-tweet="handleOpenTweetModal" />
+              <sidebar-left
+                @on-tweet="handleOpenTweetModal"
+                :user="user"
+                @on-logout="handleUserLogout"
+              />
             </div>
           </div>
           <!--Main Content-->
@@ -48,7 +52,7 @@ import useEmitter from '~/composables/useEmitter'
 
 const darkMode = ref(false)
 const { defaultTransition } = useTailwindConfig()
-const { useAuthUser, initAuth, useAuthLoading } = useAuth()
+const { useAuthUser, initAuth, useAuthLoading, logout } = useAuth()
 const {
   openPostTweetModal,
   closePostTweetModal,
@@ -79,6 +83,10 @@ const handleOpenTweetModal = () => {
 }
 const handleModalClose = () => {
   closePostTweetModal()
+}
+// Logout
+const handleUserLogout = () => {
+  logout()
 }
 // BeforeMounted
 onBeforeMount(() => {
