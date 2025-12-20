@@ -1,6 +1,6 @@
 import UrlPattern from 'url-pattern'
-import { decodeAccessToken } from '~/server/utils/jwt'
-import { getUserById } from '~/server/db/users'
+import { decodeAccessToken } from '~~/server/utils/jwt'
+import { getUserById } from '~~/server/db/users'
 
 export default defineEventHandler(async (event) => {
   // TODO: Check for "event.req" "Deprecated symbol used, consult docs for better alternative"
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
       createError({
         statusCode: 401,
         statusMessage: 'Unauthorized',
-      })
+      }),
     )
   }
   try {

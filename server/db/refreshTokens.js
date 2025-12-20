@@ -1,4 +1,4 @@
-import { prisma } from '~/server/db/index'
+import { prisma } from '~~/server/db/index'
 import { b } from 'prisma/build/public/assets/vendor'
 
 export const createRefreshToken = (refreshToken) => {

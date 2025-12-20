@@ -1,4 +1,4 @@
-import { removeRefreshToken } from '~/server/db/refreshTokens'
+import { removeRefreshToken } from '~~/server/db/refreshTokens'
 
 export default defineEventHandler(async (event) => {
   try {

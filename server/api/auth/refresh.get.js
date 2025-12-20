@@ -1,6 +1,6 @@
-import { getRefreshTokenByToken } from '~/server/db/refreshTokens'
-import { decodeRefreshToken, generateTokens } from '~/server/utils/jwt'
-import { getUserById } from '~/server/db/users'
+import { getRefreshTokenByToken } from '~~/server/db/refreshTokens'
+import { decodeRefreshToken, generateTokens } from '~~/server/utils/jwt'
+import { getUserById } from '~~/server/db/users'
 
 export default defineEventHandler(async (event) => {
   const cookies = parseCookies(event)
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       createError({
         statusCode: 401,
         statusMessage: 'Refresh token is invalid',
-      })
+      }),
     )
   }
   const rToken = await getRefreshTokenByToken(refreshToken)
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
       createError({
         statusCode: 403,
         statusMessage: 'Refresh token is invalid',
-      })
+      }),
     )
   }
   const token = decodeRefreshToken(refreshToken)
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
       createError({
         statusCode: 500,
         statusMessage: 'Something went wrong',
-      })
+      }),
     )
   }
 })

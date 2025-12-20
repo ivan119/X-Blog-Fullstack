@@ -1,8 +1,8 @@
-import { getUserByUsername } from '~/server/db/users'
+import { getUserByUsername } from '~~/server/db/users'
 import bcrypt from 'bcrypt'
-import { generateTokens, sendRefreshToken } from '~/server/utils/jwt'
-import { userTransformer } from '~/server/transformers/users'
-import { createRefreshToken } from '~/server/db/refreshTokens'
+import { generateTokens, sendRefreshToken } from '~~/server/utils/jwt'
+import { userTransformer } from '~~/server/transformers/users'
+import { createRefreshToken } from '~~/server/db/refreshTokens'
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const { username, password } = body
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       createError({
         statusCode: body,
         statusMessage: 'Invalid params',
-      })
+      }),
     )
   }
 
@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
       createError({
         statusCode: 400,
         statusMessage: 'username or password are invalid',
-      })
+      }),
     )
   }
   // Compare passwords
@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
       createError({
         statusCode: 400,
         statusMessage: 'username or password are invalid',
-      })
+      }),
     )
   }
   // generate tokens
